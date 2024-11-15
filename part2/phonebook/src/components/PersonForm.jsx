@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import phonebookService from '../services/phonebook';
 
 const PersonForm = ({persons, setPersons, setFilteredPersons}) => {
   const [newName, setNewName] = useState('');
@@ -10,18 +11,37 @@ const PersonForm = ({persons, setPersons, setFilteredPersons}) => {
     let existingPersonNames = persons.map(person => person.name);
 
     if (existingPersonNames.includes(newName)) {
-      alert(`Warning: ${newName} is already included in the phonebook.`);
+
+      if (window.confirm(`${newName} is already in the phonebook. Overwrite?`)) {
+        const personToUpdate = persons.find(person => person.name === newName);
+        const updatedPerson = {...personToUpdate, number: newNumber};
+        phonebookService.update(personToUpdate.id, updatedPerson)
+          .then(returnedPerson => {
+            const otherPersons = persons.filter(person => {
+              return person.id !== returnedPerson.id;
+            });
+            const updatedPersons = [...otherPersons, returnedPerson];
+            setPersons(updatedPersons);
+            setFilteredPersons(updatedPersons);
+            setNewName('');
+            setNewNumber('');
+        });
+      }
+
     } else {
       let newPerson = {
         name: newName,
         number: newNumber,
       };
 
-      let updatedPersons = persons.concat(newPerson); 
-      setPersons(updatedPersons);
-      setFilteredPersons(updatedPersons);
-      setNewName('');
-      setNewNumber('');
+      phonebookService.create(newPerson)
+        .then(returnedPerson => {
+          let updatedPersons = persons.concat(returnedPerson); 
+          setPersons(updatedPersons);
+          setFilteredPersons(updatedPersons);
+          setNewName('');
+          setNewNumber('');
+        });
     }
   }
 
