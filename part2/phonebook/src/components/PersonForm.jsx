@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import phonebookService from '../services/phonebook';
 
-const PersonForm = ({persons, setPersons, setFilteredPersons}) => {
+const PersonForm = (props) => {
+  const {persons, setPersons, setFilteredPersons,
+    setSuccessMessage, setErrorMessage} = props;
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
 
@@ -25,7 +27,13 @@ const PersonForm = ({persons, setPersons, setFilteredPersons}) => {
             setFilteredPersons(updatedPersons);
             setNewName('');
             setNewNumber('');
-        });
+            setSuccessMessage(`Updated ${returnedPerson.name}`);
+            setTimeout(() => setSuccessMessage(null), 3000);
+          }).catch(error => {
+            setErrorMessage(`Information of ${personToUpdate.name} has already been removed from server`);
+            setTimeout(() => setErrorMessage(null), 5000);
+            console.error(error.message);
+          });
       }
 
     } else {
@@ -41,6 +49,8 @@ const PersonForm = ({persons, setPersons, setFilteredPersons}) => {
           setFilteredPersons(updatedPersons);
           setNewName('');
           setNewNumber('');
+          setSuccessMessage(`Added ${returnedPerson.name}`);
+          setTimeout(() => setSuccessMessage(null), 3000);
         });
     }
   }
