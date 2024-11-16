@@ -1,35 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { useEffect } from 'react';
+
+import countriesService from './services/countries';
+
+import CountryFinder from './components/CountryFinder';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [countries, setCountries] = useState(null);
+
+  const loadAllCountries = () => {
+    countriesService.getAll()
+      .then(allCountries => setCountries(allCountries));
+    console.log('loaded');
+  }
+
+  useEffect(loadAllCountries, []);
+
+  if (countries === null) return null;
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CountryFinder countries={countries} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
