@@ -9,7 +9,8 @@ const CountryFinder = ({countries}) => {
     <>
       <SearchBar countries={countries}
         setCountrySearchResults={setCountrySearchResults} />
-      <CountryResults countrySearchResults={countrySearchResults} />
+      <CountryResults countrySearchResults={countrySearchResults} 
+        setCountrySearchResults={setCountrySearchResults} />
     </>
   )
 }

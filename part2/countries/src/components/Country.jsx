@@ -3,6 +3,8 @@ import { useEffect } from "react";
 
 import countriesService from '../services/countries';
 
+import Weather from "./Weather";
+
 const Country = ({countryName}) => {
   const [country, setCountry] = useState(null);
   const [commonName, setCommonName] = useState(countryName);
@@ -10,6 +12,8 @@ const Country = ({countryName}) => {
   const [area, setArea] = useState();
   const [languages, setLanguages] = useState([]);
   const [flagLink, setFlagLink] = useState();
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
 
   const getCountryDetailsHook = () => {
     countriesService.getCountry(countryName)
@@ -20,6 +24,8 @@ const Country = ({countryName}) => {
       setArea(returnedCountry.area);
       setLanguages(Object.values(returnedCountry.languages));
       setFlagLink(returnedCountry.flags.png);
+      setLatitude(returnedCountry.latlng[0]);
+      setLongitude(returnedCountry.latlng[1]);
     });
   }
 
@@ -29,22 +35,25 @@ const Country = ({countryName}) => {
 
   return (
     <>
-      <h1>{commonName}</h1>
-      capital {capital}<br/>
-      area {area}<br/>
-      <br/>
-      <strong>languages:</strong>
-      <br/>
-      <ul>
-        {languages.map(language => {
-          return (
-            <li key={language}>
-              {language}
-            </li>
-          );
-        })}
-      </ul>
-      <img src={flagLink} alt={`Flag of ${commonName}`} />
+      <div id="country-details">
+        <h1>{commonName}</h1>
+        capital {capital}<br/>
+        area {area}<br/>
+        <br/>
+        <strong>languages:</strong>
+        <br/>
+        <ul>
+          {languages.map(language => {
+            return (
+              <li key={language}>
+                {language}
+              </li>
+            );
+          })}
+        </ul>
+        <img src={flagLink} alt={`Flag of ${commonName}`} />
+      </div>
+      <Weather countryName={countryName} latitude={latitude} longitude={longitude} />
     </>
   );
 }

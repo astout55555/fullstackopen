@@ -10,8 +10,10 @@ function App() {
 
   const loadAllCountries = () => {
     countriesService.getAll()
-      .then(allCountries => setCountries(allCountries));
-    console.log('loaded');
+      .then(allCountries => {
+        console.log('countries loaded');
+        setCountries(allCountries);
+    });
   }
 
   useEffect(loadAllCountries, []);

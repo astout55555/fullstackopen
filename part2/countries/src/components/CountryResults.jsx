@@ -1,6 +1,16 @@
 import Country from './Country';
 
-const CountryResults = ({countrySearchResults}) => {
+const CountryResults = ({countrySearchResults, setCountrySearchResults}) => {
+  const handleClick = (event) => {
+    const countryName = event.target.previousElementSibling.textContent;
+    setCountrySearchResults([
+      {
+        name: {
+          common: countryName,
+        },
+      }
+    ]);
+  }
 
   if (countrySearchResults === null) {
     return null;
@@ -10,9 +20,15 @@ const CountryResults = ({countrySearchResults}) => {
     return (
       <>
         {countrySearchResults.map(country => {
+          const countryName = country.name.common;
           return (
-            <p key={country.name.common}>
-              {country.name.common}
+            <p key={countryName.concat('P')}>
+              <label htmlFor={countryName.concat('BUTTON')} key={countryName.concat('LABEL')}>
+                {countryName}
+              </label>
+              <button id={countryName.concat('BUTTON')} onClick={handleClick} key={countryName.concat('BUTTON')} >
+                show
+              </button>
             </p>
           );
         })}
