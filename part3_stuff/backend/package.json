@@ -1,0 +1,33 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ui": "rm -rf dist && cd ../notes_etc/ && npm run build && cp -r dist ../backend",
+    "deploy": "fly deploy",
+    "deploy:full": "npm run build:ui && npm run deploy",    
+    "logs:prod": "fly logs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/astout55555/fullstackopen.git"
+  },
+  "author": "Alex Stout (originally Matti Luukkainen)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/astout55555/fullstackopen/issues"
+  },
+  "homepage": "https://github.com/astout55555/fullstackopen#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.9",
+    "nodemon": "^3.1.7"
+  }
+}
