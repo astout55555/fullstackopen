@@ -1,3 +1,5 @@
+// old code from an old exercise
+
 const mongoose = require('mongoose')
 
 if (process.argv.length < 3) {

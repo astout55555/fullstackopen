@@ -7,9 +7,13 @@
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
     "test": "NODE_ENV=test node --test",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:ui": "rm -rf dist && cd ../notes_frontend_new/ && npm run build && cp -r dist ../notes_backend_new",
+    "deploy": "fly deploy",
+    "deploy:full": "npm run build:ui && npm run deploy",
+    "logs:prod": "fly logs"
   },
-  "author": "",
+  "author": "Alex Stout",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
