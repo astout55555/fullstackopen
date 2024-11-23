@@ -1,3 +1,6 @@
 part3_stuff/backend/node_modules
 part3_stuff/mongodbplaygrounds
 part3_stuff/backend/.env
+mongodbplaygrounds/
+.linthtmlrc.json
+eslint.config.js
