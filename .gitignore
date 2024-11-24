@@ -1,6 +1,6 @@
-part3_stuff/backend/node_modules
-part3_stuff/mongodbplaygrounds
-part3_stuff/backend/.env
+notes_app_old_version/backend_notes/.env
+notes_app_old_version/backend_notes/node_modules
 mongodbplaygrounds/
 .linthtmlrc.json
 eslint.config.js
+notes_app_new/misc_run.js
