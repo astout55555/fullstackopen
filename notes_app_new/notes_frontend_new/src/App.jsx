@@ -10,7 +10,6 @@ import NoteForm from './components/NoteForm';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState('');
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [username, setUsername] = useState('');
@@ -43,7 +42,6 @@ const App = () => {
       .create(noteObject)
       .then(returnedNote => {
       setNotes(notes.concat(returnedNote))
-      setNewNote('')
     });
   }
 
@@ -65,10 +63,6 @@ const App = () => {
         }, 5000)
       })
   }
-
-  // const handleNoteChange = (event) => {
-  //   setNewNote(event.target.value);
-  // }
 
   const handleLogin = async (event) => {
     event.preventDefault();
